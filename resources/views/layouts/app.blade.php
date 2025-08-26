@@ -11,6 +11,16 @@
 
   <!-- Optional Bootstrap (sudah include di AdminLTE) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<style>
+	/* Hilangkan style default AdminLTE di logo */
+.main-sidebar .brand-link .brand-image {
+    float: none !important;         /* stop logo "ngambang" kiri */
+    margin: 0 auto !important;      /* center logo */
+    display: block !important;      /* jadi block element */
+    max-height: 40px;               /* atur tinggi */
+    width: auto;                    /* biar proporsional */
+}
+	</style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -41,18 +51,15 @@
 
   <!-- Sidebar -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="{{ url('/home') }}" class="brand-link">
-      <span class="brand-text font-weight-light">📤 Klunting</span>
-    </a>
+  <a href="{{ url('/') }}" class="brand-link text-center" style="background-color:#f8f9fa;">
+    <img src="{{ asset('images/logo.png') }}" 
+         alt="Logo"
+         class="brand-image d-block mx-auto"
+         style="max-height:40px; width:auto;">
+  </a>
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview">
-          <li class="nav-item">
-            <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-home"></i>
-              <p>Home</p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="{{ route('employee.index') }}" class="nav-link {{ request()->is('employee*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
