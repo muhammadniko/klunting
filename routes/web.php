@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
 	Route::post('/payslip/send', [PayslipController::class, 'sendPayslips'])->name('payslip.send');
 	Route::post('/send-payslip-single', [PayslipController::class, 'sendPayslipSingle'])->name('send.payslip.single');
 	Route::get('/baileys-status', [PayslipController::class, 'checkBaileysStatus'])->name('baileys.status');
+	Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
+
 });
 
 //Route::get('/dashboard', function () {

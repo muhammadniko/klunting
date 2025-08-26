@@ -68,10 +68,22 @@
           </li>
           <li class="nav-item">
             <a href="{{ route('payslip.index') }}" class="nav-link {{ request()->is('payslip*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-comments"></i>
-              <p>Broadcast</p>
+              <i class="nav-icon fas fa-file"></i>
+              <p>Kirim File</p>
             </a>
           </li>
+		  <li class="nav-item">
+            <a href="{{ route('payslip.index') }}" class="nav-link {{ request()->is('messages*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-comments"></i>
+              <p>Kirim Pesan</p>
+            </a>
+          </li>
+		  <li class="nav-item">
+    <a href="{{ route('history.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-history"></i>
+        <p>History</p>
+    </a>
+</li>
         </ul>
       </nav>
     </div>

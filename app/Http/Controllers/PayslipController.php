@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\File;
 
 use App\Services\BaileysService;
 use App\Models\Employee;
+use App\Models\History;
+
 
 
 class PayslipController extends Controller
@@ -54,7 +56,7 @@ class PayslipController extends Controller
     }
 	
 
-public function sendPayslips(Request $request)
+	public function sendPayslips(Request $request)
     {
         $folderPath = $request->input('folder_path');
         $fileCaption = $request->input('caption');
@@ -113,6 +115,14 @@ public function sendPayslips(Request $request)
 		$captionFinal = $this->generateCaption($caption, $employee->nama);
 
         $success = $baileys->sendPayslip($employee->whatsapp, $filePath, $captionFinal);
+
+		History::create([
+			'nik'      => $nik,
+			'nama'     => $employee->nama,
+			'whatsapp' => $employee->whatsapp,
+			'status'   => $success ? 'Terkirim' : 'Gagal',
+			'file_path'=> $filePath,
+		]);
 
         return response()->json([
             'status' => $success ? 'success' : 'error',
