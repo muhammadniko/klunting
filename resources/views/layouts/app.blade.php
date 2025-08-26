@@ -16,14 +16,28 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        WhatsApp: 
-        <span id="baileys-status" class="badge bg-secondary">Menghubungkan...</span>
-      </li>
-    </ul>
-  </nav>
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav ml-auto">
+    
+    <!-- Status WhatsApp -->
+    <li class="nav-item d-flex align-items-center mr-3">
+      <span class="mr-2">WhatsApp:</span>
+      <span id="baileys-status" class="badge bg-secondary">Menghubungkan...</span>
+    </li>
+
+    <!-- Logout -->
+    <li class="nav-item">
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-danger btn-sm" title="Logout">
+          <i class="fas fa-power-off"></i>
+        </button>
+      </form>
+    </li>
+
+  </ul>
+</nav>
 
   <!-- Sidebar -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">

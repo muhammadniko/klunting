@@ -16,6 +16,7 @@ return new class extends Migration
 			$table->string('nik')->unique();
 			$table->string('nama');
 			$table->string('whatsapp');
+			$table->string('password');
 			$table->timestamps();
         });
     }
