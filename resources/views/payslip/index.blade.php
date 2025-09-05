@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Kirim Payslip')
+@section('title', 'Kirim File')
 
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
-        <h1 class="m-0">Kirim Dokumen</h1>
+        <h1 class="m-0">Kirim File</h1>
     </div>
 </div>
 <div class="container-fluid">
@@ -64,9 +64,13 @@
     </table>
 	<div class="form-group">
         <label for="caption">Caption</label>
-        <textarea name="caption" id="caption" class="form-control" required>Selamat Pagi *<<NAMA>>*, Berikut File Payslip anda bulan ini</textarea>
+        <textarea name="caption" id="caption" class="form-control" required>Selamat Pagi, Berikut File Payslip anda bulan ini</textarea>
     </div>
-	
+	<!-- === Summernote Editor === -->
+        <div class="form-group">
+            <label for="editor">Pesan Tambahan</label>
+            <textarea id="editor" name="message"></textarea>
+        </div>
     <div class="mt-2">
          <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-paper-plane"> </i> Kirim Semua</button>
     </div>
@@ -92,3 +96,35 @@
 </div>
 
 @endsection
+
+@push('styles')
+    <!-- Bootstrap 4 (dibutuhkan Summernote) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Popper + Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.js"></script>
+
+    <script>
+    $(function() {
+        $('#caption').summernote({
+            placeholder: 'Tulis pesan tambahan di sini...',
+            tabsize: 2,
+            height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline']],
+                ['para', ['ul', 'ol']],
+                ['view', ['codeview']]
+            ]
+        });
+    });
+    </script>
+@endpush
