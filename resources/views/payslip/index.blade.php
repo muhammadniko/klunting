@@ -66,11 +66,6 @@
         <label for="caption">Caption</label>
         <textarea name="caption" id="caption" class="form-control" required>Selamat Pagi, Berikut File Payslip anda bulan ini</textarea>
     </div>
-	<!-- === Summernote Editor === -->
-        <div class="form-group">
-            <label for="editor">Pesan Tambahan</label>
-            <textarea id="editor" name="message"></textarea>
-        </div>
     <div class="mt-2">
          <button type="submit" class="btn btn-primary mt-2"><i class="fas fa-paper-plane"> </i> Kirim Semua</button>
     </div>

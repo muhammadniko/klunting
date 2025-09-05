@@ -19,6 +19,33 @@ class PayslipController extends Controller
 		return str_replace("<<NAMA>>", $employeeName, $template);
 	}
 	
+	function convertHtmlToWhatsapp($html)
+	{
+		// Ganti <b> dan </b> dengan *
+		$text = preg_replace('/<b>(.*?)<\/b>/', '*$1*', $html);
+
+		// Ganti <strong> juga ke *
+		$text = preg_replace('/<strong>(.*?)<\/strong>/', '*$1*', $text);
+
+		// Ganti <i> dan </i> dengan _
+		$text = preg_replace('/<i>(.*?)<\/i>/', '_$1_', $text);
+		$text = preg_replace('/<em>(.*?)<\/em>/', '_$1_', $text);
+
+		// Ganti <br> dengan newline
+		$text = preg_replace('/<br\s*\/?>/i', "\n", $text);
+
+		// Ganti <p>...</p> jadi teks + newline
+		$text = preg_replace('/<p>(.*?)<\/p>/', "$1\n", $text);
+
+		// Hilangkan sisa tag HTML lain
+		$text = strip_tags($text);
+
+		// Trim spasi ekstra
+		$text = trim($text);
+
+		return $text;
+	}
+	
     public function index()
     {
 		//$folderPath = $request->folder_path;
@@ -112,7 +139,7 @@ class PayslipController extends Controller
             ]);
         }
 		
-		$captionFinal = $this->generateCaption($caption, $employee->nama);
+		$captionFinal = $this->convertHtmlToWhatsapp($this->generateCaption($caption, $employee->nama));
 
         $success = $baileys->sendPayslip($employee->whatsapp, $filePath, $captionFinal);
 
