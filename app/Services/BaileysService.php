@@ -6,15 +6,7 @@ use Illuminate\Support\Facades\Http;
 class BaileysService
 {
     public function sendPayslip($phoneNumber, $filePath, $fileName)
-    {
-        /*$response = Http::withHeaders([
-			'Content-Type' => 'application/json'
-		])->post('http://localhost:3000/send-file', [
-			'number' => "082351442030",
-			'filePath' => "D:/Payslip/tes.pdf",
-			'caption' => "Ini Slip Gaji Anda"
-		]);*/
-		
+    {	
 		// Hilangkan spasi, tanda plus, dan karakter non-digit
         $numberclear = preg_replace('/\D/', '', $phoneNumber);
 

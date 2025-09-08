@@ -51,6 +51,11 @@ let caption = @json($caption);
 let total = files.length;
 let sent = 0;
 
+// ✅ Tambahkan fungsi delay
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function sendOne(index) {
     let file = files[index];
 
@@ -110,6 +115,7 @@ async function startSending() {
 
     for (let i = 0; i < total; i++) {
         await sendOne(i);
+		await delay(5000); // jeda 5 detik sebelum kirim berikutnya
     }
 
     // Sembunyikan spinner setelah semua selesai
