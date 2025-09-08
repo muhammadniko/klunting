@@ -19,7 +19,7 @@
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>WhatsApp</th>
-                <th>File</th>
+                <th>Content</th>
 				<th>Status</th>
                 <th>Waktu</th>
             </tr>
@@ -43,6 +43,8 @@
 	</div>
 	</div>
 
-    {{ $histories->links() }}
+    <div class="d-flex justify-content-center mt-3">
+    {{ $histories->links('pagination::bootstrap-4') }}
+</div>
 </div>
 @endsection

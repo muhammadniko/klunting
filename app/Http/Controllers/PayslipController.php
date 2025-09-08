@@ -96,26 +96,18 @@ class PayslipController extends Controller
         $fileList = [];
 
         foreach ($files as $file) {
-            /*$fileName = $file->getFilename();
-            $nik = explode(' ', $fileName)[0];
-            $fileList[] = [
-                'nik' => $nik,
-                'path' => $file->getPathname(),
-                'name' => $fileName
-            ];*/
-			
 			$fileName = $file->getFilename();
-        $nik = explode(' ', $fileName)[0];
+			$nik = explode(' ', $fileName)[0];
 
-        $employee = Employee::where('nik', $nik)->first();
-        if ($employee) {
-            $fileList[] = [
-                'nik' => $nik,
-				'nama' => $employee->nama,
-				'whatsapp' => $employee->whatsapp,
-                'path' => $file->getPathname(),
-                'name' => $fileName            ];
-		}
+			$employee = Employee::where('nik', $nik)->first();
+			if ($employee) {
+				$fileList[] = [
+					'nik' => $nik,
+					'nama' => $employee->nama,
+					'whatsapp' => $employee->whatsapp,
+					'path' => $file->getPathname(),
+					'name' => $fileName            ];
+			}
 			
         } // ini foreach
 
@@ -164,7 +156,7 @@ class PayslipController extends Controller
 				'nik'      => $nik,
 				'nama'     => $employee->nama,
 				'whatsapp' => $employee->whatsapp,
-				'status'   => 'Gagal, Error Laravel: ' . $e->getMessage(),
+				'status'   => 'Gagal, ' . $e->getMessage(),
 				'file_path'=> $filePath,
 			]);
 
