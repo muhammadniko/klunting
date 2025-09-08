@@ -64,22 +64,20 @@ async function sendOne(index) {
     `;
     document.getElementById('log-list').appendChild(row);
 
-    try {
-        let res = await fetch("{{ route('send.payslip.single') }}", {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ 
-                nik: file.nik, 
-                file_path: file.path,
-                caption: caption
-            })
-        });
-
-        let data = await res.json();
-
+    await fetch("{{ route('send.payslip.single') }}", {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ 
+            nik: file.nik, 
+            file_path: file.path,
+            caption: caption
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
         sent++;
         let percent = Math.round((sent / total) * 100);
         document.getElementById('progress-bar').style.width = percent + '%';
@@ -91,17 +89,7 @@ async function sendOne(index) {
         } else {
             statusCell.innerHTML = '❌ ' + data.message;
         }
-
-    } catch (error) {
-        sent++;
-        let percent = Math.round((sent / total) * 100);
-        document.getElementById('progress-bar').style.width = percent + '%';
-        document.getElementById('progress-bar').textContent = percent + '%';
-
-        let statusCell = document.getElementById(`status-${index}`);
-        statusCell.innerHTML = '❌ Error: ' + error.message;
-		console.log(error.message);
-    }
+    });
 }
 
 async function startSending() {

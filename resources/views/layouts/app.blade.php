@@ -80,7 +80,7 @@
             </a>
           </li>
 		  <li class="nav-item">
-    <a href="{{ route('history.index') }}" class="nav-link">
+    <a href="{{ route('history.index') }}" class="nav-link {{ request()->is('history*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-history"></i>
         <p>History</p>
     </a>

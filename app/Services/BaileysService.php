@@ -29,7 +29,19 @@ class BaileysService
             'caption' => $fileName // Opsional
         ]);
 
-        return $response->successful();
+       if ($response->successful()) {
+            $result = $response->json();
+
+            // Kalau balasan bot "success"
+            if (isset($result['status']) && $result['status'] === 'success') {
+                return true;
+            }
+
+            // Kalau failed/error
+            return false;
+        }
+
+        return false;
     }
 	
 	public function getStatus()

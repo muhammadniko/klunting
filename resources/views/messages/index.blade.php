@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Kirim File')
+@section('title', 'Kirim Pesan')
 
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
-        <h1 class="m-0">Kirim File</h1>
+        <h1 class="m-0">Kirim Pesan</h1>
     </div>
 </div>
 <div class="container-fluid">

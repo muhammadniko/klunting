@@ -140,24 +140,39 @@ class PayslipController extends Controller
         }
 		
 		$captionFinal = $this->convertHtmlToWhatsapp($this->generateCaption($caption, $employee->nama));
+		try {
+			$success = $baileys->sendPayslip($employee->whatsapp, $filePath, $captionFinal);
 
-        $success = $baileys->sendPayslip($employee->whatsapp, $filePath, $captionFinal);
+			History::create([
+				'nik'      => $nik,
+				'nama'     => $employee->nama,
+				'whatsapp' => $employee->whatsapp,
+				'status'   => $success ? 'Terkirim' : 'Gagal',
+				'file_path'=> $filePath,
+			]);
 
-		History::create([
-			'nik'      => $nik,
-			'nama'     => $employee->nama,
-			'whatsapp' => $employee->whatsapp,
-			'status'   => $success ? 'Terkirim' : 'Gagal',
-			'file_path'=> $filePath,
-		]);
+			return response()->json([
+				'status' => $success ? 'success' : 'error',
+				'nik' => $nik,
+				'nama' => $employee->nama,
+				'whatsapp' => $employee->whatsapp,
+				'message' => $success ? 'Terkirim' : 'Gagal'
+			]);
+		} catch (\Exception $e) {
+			// catat juga kalau error fatal (misalnya koneksi ke bot gagal)
+			History::create([
+				'nik'      => $nik,
+				'nama'     => $employee->nama,
+				'whatsapp' => $employee->whatsapp,
+				'status'   => 'Gagal, Error Laravel: ' . $e->getMessage(),
+				'file_path'=> $filePath,
+			]);
 
-        return response()->json([
-            'status' => $success ? 'success' : 'error',
-            'nik' => $nik,
-            'nama' => $employee->nama,
-			'whatsapp' => $employee->whatsapp,
-            'message' => $success ? 'Terkirim' : 'Gagal'
-        ]);
+			return response()->json([
+				'status' => 'error',
+				'message' => 'Gagal kirim: ' . $e->getMessage()
+			], 500);
+		}
     }
 	
 	public function checkBaileysStatus(BaileysService $baileys)
