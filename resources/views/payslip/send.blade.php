@@ -27,6 +27,18 @@
     </table>
 </div>
 
+<!-- Modal Proses Selesai -->
+<div class="modal fade" id="doneModal" tabindex="-1" aria-labelledby="doneModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <h4 id="doneModalLabel">✅ Proses Selesai</h4>
+        <button type="button" class="btn btn-primary mt-3" id="okButton">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
 /* Spinner animasi */
 .spinner {
@@ -120,6 +132,15 @@ async function startSending() {
 
     // Sembunyikan spinner setelah semua selesai
     document.getElementById('global-spinner').style.display = 'none';
+	
+	// ✅ Tampilkan modal selesai
+    let modal = new bootstrap.Modal(document.getElementById('doneModal'));
+    modal.show();
+
+    // Redirect saat klik OK
+    document.getElementById('okButton').addEventListener('click', function() {
+        window.location.href = "/klunting/public/payslip";
+    });
 }
 
 startSending();
