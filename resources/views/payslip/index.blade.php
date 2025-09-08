@@ -28,7 +28,7 @@
     <div class="form-group">
 		
         <label for="folder_path">Folder File</label>
-        <input type="text" name="folder_path" id="folder_path" class="form-control" value="D:/Payslip" required readonly>
+        <input type="text" name="folder_path" id="folder_path" class="form-control" value="{{$folder_path}}" required readonly>
     </div><div class="row"><br/></div>
 	<h5>File Ditemukan:</h5>
     <table class="table table-bordered">
@@ -98,7 +98,8 @@
             tabsize: 2,
             height: 150,
             toolbar: [
-                ['style', ['bold', 'italic', 'underline']]
+                ['style', ['bold', 'italic']],
+				['view', ['codeview']]
             ]
         });
     });

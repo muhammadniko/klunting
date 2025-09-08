@@ -32,8 +32,11 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-body">
-        <h4 id="doneModalLabel">✅ Proses Selesai</h4>
-        <button type="button" class="btn btn-primary mt-3" id="okButton">OK</button>
+        <h4 id="doneModalLabel">Proses Selesai ✅</h4>
+        <div class="mt-4">
+            <button type="button" class="btn btn-secondary me-2" id="okButton">OK</button>
+            <button type="button" class="btn btn-primary" id="historyButton">Lihat Riwayat</button>
+        </div>
       </div>
     </div>
   </div>
@@ -137,9 +140,14 @@ async function startSending() {
     let modal = new bootstrap.Modal(document.getElementById('doneModal'));
     modal.show();
 
-    // Redirect saat klik OK
+    // Tombol lihat riwayat
+    document.getElementById('historyButton').addEventListener('click', function() {
+        window.location.href = "/klunting/public/history";
+    });
+	
+	// Tombol OK → close modal
     document.getElementById('okButton').addEventListener('click', function() {
-        window.location.href = "/klunting/public/payslip";
+        modal.hide();
     });
 }
 

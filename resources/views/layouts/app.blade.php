@@ -74,7 +74,7 @@
             </a>
           </li>
 		  <li class="nav-item">
-            <a href="{{ route('payslip.index') }}" class="nav-link {{ request()->is('messages*') ? 'active' : '' }}">
+            <a href="#" class="disabled nav-link {{ request()->is('messages*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-comments"></i>
               <p>Kirim Pesan</p>
             </a>

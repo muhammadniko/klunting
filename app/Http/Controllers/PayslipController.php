@@ -16,7 +16,7 @@ class PayslipController extends Controller
 {
 	
 	function generateCaption($template, $employeeName) {
-		return str_replace("<<NAMA>>", $employeeName, $template);
+		return str_replace("%NAMA%", $employeeName, $template);
 	}
 	
 	function convertHtmlToWhatsapp($html)
@@ -36,6 +36,9 @@ class PayslipController extends Controller
 
 		// Ganti <p>...</p> jadi teks + newline
 		$text = preg_replace('/<p>(.*?)<\/p>/', "$1\n", $text);
+		
+		// Ganti <div>...</div> jadi teks + newline
+		$text = preg_replace('/<div>(.*?)<\/div>/', "$1\n", $text);
 
 		// Hilangkan sisa tag HTML lain
 		$text = strip_tags($text);
@@ -49,7 +52,7 @@ class PayslipController extends Controller
     public function index()
     {
 		//$folderPath = $request->folder_path;
-		$folderPath = 'D:/Payslip';
+		$folderPath = 'D:/Upload';
 
     if (!File::exists($folderPath) || !File::isDirectory($folderPath)) {
         return back()->with('error', 'Folder tidak ditemukan.');
