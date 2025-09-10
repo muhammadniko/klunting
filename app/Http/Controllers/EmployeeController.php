@@ -27,12 +27,14 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($request->all());
+		
         return redirect()->route('employee.index')->with('success', 'Data karyawan berhasil ditambahkan');
     }
 
     public function edit($id)
     {
         $employee = Employee::findOrFail($id);
+		
         return view('employee.edit', compact('employee'));
     }
 
@@ -47,13 +49,16 @@ class EmployeeController extends Controller
         ]);
 
         $employee->update($request->all());
+		
         return redirect()->route('employee.index')->with('success', 'Data karyawan berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
+		
         $employee->delete();
+		
         return redirect()->route('employee.index')->with('success', 'Data karyawan berhasil dihapus');
     }
 }

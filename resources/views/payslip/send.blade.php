@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
-    <h4>Mengirim Dokumen</h4>
+	<h4>Mengirim Dokumen</h4>
     <p>
         Total file: {{ count($files) }}
         <span id="global-spinner" class="spinner" style="margin-left:10px;"></span>
@@ -15,7 +16,7 @@
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
-                <th style="width: 50px;">No</th>
+                <th>No</th>
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>WhatsApp</th>
@@ -67,14 +68,17 @@ let total = files.length;
 let sent = 0;
 
 // ✅ Tambahkan fungsi delay
-function delay(ms) {
+function delay(ms) 
+{
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function sendOne(index) {
+async function sendOne(index)
+{
     let file = files[index];
 
     let row = document.createElement('tr');
+	
     row.innerHTML = `
         <td>${index + 1}</td>
         <td>${file.nik}</td>
@@ -82,6 +86,7 @@ async function sendOne(index) {
         <td>${file.whatsapp ?? 'Tidak ditemukan'}</td>
         <td id="status-${index}">Mengirim...</td>
     `;
+	
     document.getElementById('log-list').appendChild(row);
 
     try {
@@ -101,11 +106,14 @@ async function sendOne(index) {
         let data = await res.json();
 
         sent++;
+		
         let percent = Math.round((sent / total) * 100);
+		
         document.getElementById('progress-bar').style.width = percent + '%';
         document.getElementById('progress-bar').textContent = percent + '%';
 
         let statusCell = document.getElementById(`status-${index}`);
+		
         if (data.status === 'success') {
             statusCell.innerHTML = '✅ ' + data.message;
         } else {
@@ -113,18 +121,22 @@ async function sendOne(index) {
         }
 
     } catch (error) {
-        sent++;
-        let percent = Math.round((sent / total) * 100);
-        document.getElementById('progress-bar').style.width = percent + '%';
+        
+		sent++;
+        
+		let percent = Math.round((sent / total) * 100);
+        
+		document.getElementById('progress-bar').style.width = percent + '%';
         document.getElementById('progress-bar').textContent = percent + '%';
 
         let statusCell = document.getElementById(`status-${index}`);
-        statusCell.innerHTML = '❌ Error: ' + error.message;
-		console.log(error.message);
+        
+		statusCell.innerHTML = '❌ Error: ' + error.message;
     }
 }
 
-async function startSending() {
+async function startSending() 
+{
     // Spinner aktif saat proses berjalan
     document.getElementById('global-spinner').style.display = 'inline-block';
 
@@ -152,5 +164,6 @@ async function startSending() {
 }
 
 startSending();
+
 </script>
 @endsection
