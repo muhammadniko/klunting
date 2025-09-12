@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /klunting/
+
+    # Kalau akses langsung root /klunting, arahkan ke /public/
+    RewriteRule ^$ public/ [L,R=302]
+
+    # Kalau ada request selain root, teruskan ke folder public
+    RewriteCond %{REQUEST_URI} !^/klunting/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
